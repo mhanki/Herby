@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Plants;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('plants', [
+        'heading' => 'Latest Additions',
+        'plants' => Plants::all()
+    ]);
 });
 
-Route::get('/search', function (Request $request) {
-    return $request;
+Route::get('/plants/{id}', function ($id) {
+    return view('plant', [
+        'plant' => Plants::find($id)
+    ]);
 });
